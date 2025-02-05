@@ -114,16 +114,18 @@ with ftmtext:
 
 # Model selection
 model_names = list(models.keys())
-mdlspace1, mdlimg, mdlselectbox, mdlspace2 = st.columns([0.2, 0.1, 0.25, 0.2], vertical_alignment="center")
+mdlspace1, mdlimg, mdlselectbox, mdlspace2 = st.columns([0.3, 0.1, 0.25, 0.2], vertical_alignment="center")
 
 with mdlimg:
     st.image(os.path.join("assets", "MLModel.svg"), width=75)
 
 with mdlselectbox:
-    selected_model_name = st.selectbox("Pilih Model", model_names)
+    st.html("<h2 style='text-align: left'>NPK Model</h2>")
 
 # Get the selected model
-selected_model = models[selected_model_name]
+N_model = models["Model N"]
+P_model = models["Model P"]
+K_model = models["Model K"]
 
 predspace1, predimg, predtext, predspace2 = st.columns([0.4, 0.15, 0.15, 0.4], vertical_alignment="center")
 
@@ -133,9 +135,6 @@ with predimg:
 with predtext:
     st.html("<h3 style='text-align: left'>Calculation</h3>")
 
-# # Assuming all models expect the same features (modify as needed)
-# feature_names = ['Tekanan Udara', 'Suhu Average', 'RH Average', 'SR Average', 'Suhu Tanah', 'PH', 'Kelembapan Tanah', 'EC']
-
 # Convert input dictionary to DataFrame
 input_df = pd.DataFrame([input_data])
 
@@ -143,17 +142,33 @@ input_df = pd.DataFrame([input_data])
 # st.write(input_df)
 
 # Generate predictions using the selected model
-if selected_model:
+if N_model:
     try:
-        prediction = selected_model.predict(input_df)
+        N_prediction = N_model.predict(input_df)
     except Exception as e:
         st.error(f"An error occurred while generating predictions: {e}")
 else:
     st.error("No model is selected.")
 
-npkspace1, npk, npkspace2 = st.columns([0.1, 0.2, 0.1], vertical_alignment="center")
+if P_model:
+    try:
+        P_prediction = P_model.predict(input_df)
+    except Exception as e:
+        st.error(f"An error occurred while generating predictions: {e}")
+else:
+    st.error("No model is selected.")
 
-with npk:
+if K_model:
+    try:
+        K_prediction = K_model.predict(input_df)
+    except Exception as e:
+        st.error(f"An error occurred while generating predictions: {e}")
+else:
+    st.error("No model is selected.")
+
+npkspace1, ncont, pcont, kcont, npkspace2 = st.columns([0.01, 0.2, 0.2, 0.2, 0.01], vertical_alignment="center")
+
+with ncont:
     with stylable_container(
                 key="custom_container_0",
                 css_styles="""
@@ -168,4 +183,38 @@ with npk:
                     }
                     """,
             ):
-                st.html(f"<h2 style='text-align: center; font-size: 1.8em', 'text-color= blue'>NPK: {prediction[0]:.2f} mg/Kg</h2>")
+                st.html(f"<h2 style='text-align: center; font-size: 1.5em', 'text-color= blue'>Nitrogen: {N_prediction[0]:.2f} mg/Kg</h2>")
+
+with pcont:
+    with stylable_container(
+                key="custom_container_0",
+                css_styles="""
+                    {
+                        background-color: #639CFF;
+                        border: 3px solid #639CFF;
+                        border-radius: 10px;
+                        align-items: center;
+                        align-content: center;
+                        justify-content: center;
+                        justify-items: center;
+                    }
+                    """,
+            ):
+                st.html(f"<h2 style='text-align: center; font-size: 1.5em', 'text-color= blue'>Phosphor: {P_prediction[0]:.2f} mg/Kg</h2>")
+
+with kcont:
+    with stylable_container(
+                key="custom_container_0",
+                css_styles="""
+                    {
+                        background-color: #639CFF;
+                        border: 3px solid #639CFF;
+                        border-radius: 10px;
+                        align-items: center;
+                        align-content: center;
+                        justify-content: center;
+                        justify-items: center;
+                    }
+                    """,
+            ):
+                st.html(f"<h2 style='text-align: center; font-size: 1.5em', 'text-color= blue'>Kalium: {K_prediction[0]:.2f} mg/Kg</h2>")

@@ -1,7 +1,7 @@
 # Streamlit Machine Learning Dashboard
 
 ## Overview
-This is a Streamlit dashboard for machine learning model stored in a `.pkl` file.
+This is a Streamlit dashboard for NPK calculator model stored in a `.pkl` file.
 
 ## Setup Instructions
 1. Clone this repository:
