@@ -166,7 +166,7 @@ if K_model:
 else:
     st.error("No model is selected.")
 
-npkspace1, ncont, pcont, kcont, npkspace2 = st.columns([0.01, 0.2, 0.2, 0.2, 0.01], vertical_alignment="center")
+ncont, pcont, kcont = st.columns([0.2, 0.2, 0.2], vertical_alignment="center")
 
 with ncont:
     with stylable_container(
@@ -180,10 +180,12 @@ with ncont:
                         align-content: center;
                         justify-content: center;
                         justify-items: center;
+                        padding-right: 5px;
+                        padding-left: 5px;
                     }
                     """,
             ):
-                st.html(f"<h2 style='text-align: center; font-size: 1.5em', 'text-color= blue'>Nitrogen: {N_prediction[0]:.2f} mg/Kg</h2>")
+                st.html(f"<h2 style='text-align: center; font-size: 1.2em', 'text-color= blue'>Nitrogen: {N_prediction[0]:.2f} mg/Kg</h2>")
 
 with pcont:
     with stylable_container(
@@ -200,7 +202,7 @@ with pcont:
                     }
                     """,
             ):
-                st.html(f"<h2 style='text-align: center; font-size: 1.5em', 'text-color= blue'>Phosphor: {P_prediction[0]:.2f} mg/Kg</h2>")
+                st.html(f"<h2 style='text-align: center; font-size: 1.2em', 'text-color= blue'>Phosphor: {P_prediction[0]:.2f} mg/Kg</h2>")
 
 with kcont:
     with stylable_container(
@@ -217,4 +219,4 @@ with kcont:
                     }
                     """,
             ):
-                st.html(f"<h2 style='text-align: center; font-size: 1.5em', 'text-color= blue'>Kalium: {K_prediction[0]:.2f} mg/Kg</h2>")
+                st.html(f"<h2 style='text-align: center; font-size: 1.2em', 'text-color= blue'>Kalium: {K_prediction[0]:.2f} mg/Kg</h2>")
